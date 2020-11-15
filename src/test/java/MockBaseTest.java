@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
-public class MockTest {
+public class MockBaseTest {
 
     /**
      * 基础方法
