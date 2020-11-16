@@ -1,6 +1,11 @@
+package mock.mockito;
+
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * UserBusiness中依赖UserService
+ */
 public class UserBusiness {
     public UserService userService;
 
@@ -13,9 +18,9 @@ public class UserBusiness {
         List<String> list = new ArrayList<String>();
         List<String> values = userService.getValues(user);
 
-        for (String todo : values) {
-            if (todo.contains("Hibernate")) {
-                list.add(todo);
+        for (String item : values) {
+            if (item.contains("Hibernate")) {
+                list.add(item);
             }
         }
         return list;

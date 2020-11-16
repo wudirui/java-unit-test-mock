@@ -1,3 +1,7 @@
+package mock.mockito;
+
+import mock.mockito.UserBusiness;
+import mock.mockito.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.*;
@@ -38,8 +42,11 @@ public class MockAnnotationTest {
         arrayList.add("mockito2");
         userBusiness.deleteValues("dummy");
 
+        //验证是否执行过 add("mockito1")，add("mockito2")操作
         verify(arrayList).add("mockito1");
         verify(arrayList).add("mockito2");
+
+        //验证执行的次数
         verify(userService, times(1)).deleteValues("Use Spring MVC");
         verify(userService, never()).deleteValues("Use Hibernate Java");
         verify(userService, never()).deleteValues("Use Hibernate");
@@ -50,15 +57,10 @@ public class MockAnnotationTest {
 
     @Test
     public void deleteUserUseArgumentCaptor() {
-        //Given
+
         List<String> combinedlist = Arrays.asList("Use Hibernate Java", "Use Hibernate Core", "Use Hibernate", "Use Spring MVC");
-
         given(userService.getValues("dummy")).willReturn(combinedlist);
-
-        //When
         userBusiness.deleteValues("dummy");
-
-        //Then
         then(userService).should().deleteValues(argumentCaptor.capture());
         assertThat(argumentCaptor.getValue(), is("Use Spring MVC"));
         System.out.println("test is working..");

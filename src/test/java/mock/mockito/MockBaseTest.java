@@ -1,9 +1,13 @@
+package mock.mockito;
+
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class MockBaseTest {
@@ -19,7 +23,7 @@ public class MockBaseTest {
         when(mockList.size()).thenReturn(10);
         Assert.assertTrue(mockList.add("张三"));
         Assert.assertFalse(mockList.add("李四"));
-        Assert.assertEquals(mockList.size(), 10);
+        assertEquals(mockList.size(), 10);
         System.out.println(mockList.get(0));
     }
 
@@ -65,5 +69,23 @@ public class MockBaseTest {
         List list = mock(List.class);
         doThrow(new RuntimeException()).when(list).add(1);
         list.add(1);
+    }
+
+    /**
+     * spy测试
+     */
+    @Test
+    public void spyTest() {
+        List<String> spyList = Mockito.spy(new ArrayList<String>());
+        spyList.add("one");
+        spyList.add("two");
+
+        verify(spyList).add("one");
+        verify(spyList).add("two");
+
+        assertEquals(2, spyList.size());
+        doReturn(100).when(spyList).size();
+        assertEquals(100, spyList.size());
+
     }
 }
