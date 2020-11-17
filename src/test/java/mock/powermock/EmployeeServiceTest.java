@@ -1,8 +1,8 @@
 package mock.powermock;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -34,5 +34,17 @@ public class EmployeeServiceTest extends TestCase {
         PowerMockito.doNothing().when(EmployeeUtils.class);
         final EmployeeService employeeService = new EmployeeService();
         employeeService.createEmployee(employee);
+    }
+
+    /**
+     * 测试Integer类型缓存问题
+     */
+    @Test
+    public void myTest() {
+        Integer a = 1000, b = 1000;
+        System.out.println(a == b);
+        Integer c = 100, d = 100;
+        System.out.println(c == d);
+
     }
 }
